@@ -1,0 +1,208 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title>{{ _('Our amazing chinese calendar baby gender predictor 2020 and 2021') }}</title>
+<meta name="description" content="{{ _('The lengendary Chinese calendar is an ancient method to find out the sex of your baby. But is it reliable?') }}">
+<style type="text/css">
+
+.meter {
+  display: block;
+  width: 273px;
+  height: 155px;
+  margin: 0 auto;
+}
+
+.meter-left {
+  -webkit-transform: skewX(-2deg) skewY(1deg);
+          transform: skewX(-2deg) skewY(1deg);
+  stroke-width: 58;
+  stroke-dashoffset: 253;
+  stroke-dasharray: 120 400;
+  stroke: #1e90ff;
+  fill: none;
+}
+
+.meter-center {
+  stroke-width: 56;
+  stroke-dashoffset: 128;
+  stroke-dasharray: 120 400;
+  stroke: #d3d3d3;
+  fill: none;
+}
+
+.meter-right {
+  -webkit-transform: skewX(2deg) skewY(1deg);
+          transform: skewX(2deg) skewY(1deg);
+  stroke-width: 58;
+  stroke-dashoffset: 5;
+  stroke-dasharray: 120 400;
+  stroke: #ffc0cb;
+  fill: none;
+}
+
+.meter-clock {
+  -webkit-transform: rotate(-54deg);
+          transform: rotate(-54deg);
+  -webkit-transform-origin: 137px 146px;
+          transform-origin: 137px 146px;
+  fill: black;
+}
+
+.meter-circle {
+  fill: black;
+}
+
+#predict_but {
+	border: solid 1px black;
+	background-color: #cb7474;
+	border-radius: 3px;
+	padding: 0.3rem;
+	padding-left: 1rem;
+	padding-right: 1rem;
+	font-size: 1.1rem;
+	color: white;
+}
+
+.blink {
+        animation: blinker 0.6s linear infinite;
+      }
+      @keyframes blinker {
+        50% {
+          opacity: 0;
+        }
+      }
+
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="container article-box">
+
+<h1 style="color:#cb7474;text-align: center; padding-bottom: 2rem;"> {{ _('Try our amazing Chinese Calendar Gender Predictor 2020 and 2021&nbsp!') }}</h1>
+
+<h2> {{ _('How to use the Chinese Gender Predictor ?') }} </h2>
+
+<p> {{ _('Back in ancient China, many people used a lengendary Gender Chart to predict and select baby’s gender. According to the legend, the Chinese Gender Calendar was buried in the royal tomb of an imperial family and was discovered more than 700 years ago. The calcultation to know if the the baby is a boy or a girl are said to be based on traditionnal Chinese beliefs like Yin-Yang, Five Elements, Eight Diagrams and time.') }}</p>
+
+<p> {{ _('The chinese calendar predictor method use two values: the') }} <a href="https://en.wikipedia.org/wiki/Chinese_calendar">"{{ _('Lunar age') }}"</a> {{ _('of the mother when she got pregnant and the Chinese Lunar Month of conception. When you have these two values, all you need to do is to compute the formula (49 + Lunar Month - Lunar Age at the time of conception). If you get an odd number, it is a baby boy and if you get an even number, it is a baby girl.') }}</p>
+
+<p>{{ _('Looking for an easy way to know the result? <b>Just use our automated predictor below</b>. We just need the birth date of the mother and the conception date. This tool works for year 2020, for year 2021 and for any year in the past !') }}</p>
+
+<div style="border: solid 0.5px grey;padding: 0.5rem;border-radius:3px;">
+
+	<p style="text-align: center;font-size: 1.6rem;font-weight: 600;"> <span style="color:#1e90ff">{{ _('BOY') }}</span>&nbsp&nbsp&nbsp {{ _('or') }} &nbsp&nbsp&nbsp<span style="color:#ffc0cb">{{ _('GIRL') }}</span> </p>
+    <svg class="meter">
+      <circle class="meter-left" r="96" cx="135" cy="142"></circle>
+      <circle class="meter-center" r="96" cx="136" cy="142"></circle>
+      <circle class="meter-right" r="96" cx="138" cy="142"></circle>
+      <polygon class="meter-clock" points="129,145 137,90 145,145" style="transform: rotate(9deg);"></polygon>
+      <circle class="meter-circle" r="10" cx="137" cy="145"></circle>
+    </svg>
+    <div style="max-width: 300px;text-align: center;border: solid 1px grey;border-radius: 3px;margin: 0 auto;height: 5rem;">
+    	<p style="font-size: 2.5rem;position: relative;top:0.5rem;" id="chinese-text">发 现 性</p>
+    	    <svg id="spinner" width="38" height="38" viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg" stroke="black" fill="#cb7474" style="margin: 0 auto;display: none;position: relative;top:1.2rem;">
+    <g fill="none" fill-rule="evenodd">
+        <g transform="translate(1 1)" stroke-width="2.5">
+            <circle stroke-opacity=".5" cx="18" cy="18" r="18"/>
+            <path d="M36 18c0-9.94-8.06-18-18-18">
+                <animateTransform
+                    attributeName="transform"
+                    type="rotate"
+                    from="0 18 18"
+                    to="360 18 18"
+                    dur="1s"
+                    repeatCount="indefinite"/>
+            </path>
+        </g>
+    </g>
+</svg>
+<p style="font-size: 0.8rem;position: relative;top:1.8rem;display: none;" id="text1" class="blink">{{ _('doing hard computations ...') }}</p>
+<p style="font-size: 0.8rem;position: relative;top:1.8rem;display: none;" id="text2" class="blink">{{ _('connecting with ancient chinese spirits...') }}</p>
+<p style="font-size: 1.5rem;position: relative;top:1.1rem;color:#1e90ff;display: none;" id="boy">{{ _('BOY !') }}</p>
+<p style="font-size: 1.5rem;position: relative;top:1.1rem;color:#ffc0cb;display: none;" id="girl">{{ _('GIRL !') }}</p>
+<p style="font-size: 0.7rem;position: relative;top:0.5rem;display: none;" id="text3">{{ _('accuracy: 50%%') }}</p>
+	</div>
+    <div style="max-width: 300px;margin: 0 auto;padding-top: 1rem;">
+  <label for="mother-date">{{ _('Birth Date of the mother') }}</label>
+  <input type="date" id="mother-date" class="username" value="1990-01-01">
+     </div>
+
+<div style="max-width: 300px;margin: 0 auto;padding-top: 1rem;">
+  <label for="con-date">{{ _('Conception Date') }}</label>
+  <input type="date" id="con-date"  class="username" value="2020-10-01">
+     </div>
+
+<div style="max-width: 300px;margin: 0 auto;padding-top: 1rem;">
+    <button type="button" onclick="predictGender()" id="predict_but">{{ _('Predict Baby Gender') }}</button>
+</div>
+
+</div>
+
+<h2 style="padding-top: 1rem;"> {{ _('Is the Chinese Gender Chart Predictor accurate ?') }}</h2>
+<p>{{ _('Short answer: <b>not at all !') }}</b>
+<p>{{ _('The accuracy of the Chinese Calendar predictor has been evaluated by scientific studies. For example,') }} <a href="https://twu-ir.tdl.org/handle/11274/11802" target="_blank">{{ _('a study from 2003</a> analyzed 1,005 births in a private hospital in Dallas, Texas. An') }} <a href="https://www.ajog.org/article/S0002-9378(09)01545-2/fulltext" target="_blank">{{ _('other study in 2009</a> even examined 38,394 births at Massachusetts General Hospital between 1995 and 2008.') }}</p>
+<p>{{ _("In both cases, the conclusion is clear: there is no correlation between gender predicted using the Chinese lunar calendar and actual gender at birth. This just means that <b>this method is not better than a coin toss !</b> So use it for fun if you like but don't rely on it !") }}</p>
+<p>{{ _('We know how difficult it is to find reliable information on gender prediction on the internet. Many websites will tell you that some methods like Chinese Calendar or Ramzi theory are accurate even if there is no proof at all !') }}</p>
+<p>{{ _("At Babygram, the only methods we trust to determine baby's sex with an utltrasound is the") }} <b><a href="{{ url_for('nub-theory'+'_'+lang_code) }}">{{ _('Nub Theory') }}</a></b> {{ _('and our') }} <b><a href="{{ url_for('how-it-works'+'_'+lang_code) }}">{{ _('Image recognition algorithm') }}</a></b>. {{ _('If you are looking for a reliable prediction based on scientific evidences, you can') }} <a href="{{ url_for('order'+'_'+lang_code) }}" style="color:#cb7474;">{{ _('send your scan to our experts') }}</a>.</p>
+  </div>
+</div>
+
+<div class="container" style="width: 100vw;max-width: 980px;padding-bottom: 3rem;">
+</div>
+
+<script type="text/javascript">
+
+  // var rangeMeter = document.querySelector('#range');
+  // var rangeShow = document.querySelector("#show");
+  var rangeClock =  document.querySelector('.meter-clock');
+  var gender = "F";
+
+  function calculateAge(birthday,date) { // birthday is a date
+  	date1 = new Date(birthday);
+  	date2 = new Date(date);
+    var ageDifMs = date2.getTime() - date1.getTime();
+    var ageDate = new Date(ageDifMs); // miliseconds from epoch
+    return Math.abs(ageDate.getUTCFullYear() - 1970);
+}
+const delay = ms => new Promise(res => setTimeout(res, ms));
+const predictGender = async () => {
+	document.getElementById("text3").style.display="none";
+	document.getElementById("boy").style.display="none";
+	document.getElementById("girl").style.display="none";
+  	document.getElementById("chinese-text").style.display="none";
+  	document.getElementById("spinner").style.display="block";
+  	var motherDate = document.getElementById("mother-date").value
+  	var conceptionDate = document.getElementById("con-date").value
+  	console.log(motherDate)
+  	// console.log(Date(conceptionDate).getTime())
+  	//Chinese lunar age at the time the mother got pregnant
+  	lunarAge = calculateAge(motherDate,conceptionDate)
+  	//Mother Chinese lunar conception month
+  	var date2 = new Date(conceptionDate)
+  	lunarMonth = date2.getMonth(); //should be chinese month but same predictive accuracy of 50%
+  	//prediction
+  	var pred = (49 + lunarMonth - lunarAge) % 2;
+  	console.log(pred)
+
+  	await delay(1000);
+  	document.getElementById("spinner").style.display="none";
+  	document.getElementById("text1").style.display="block";
+  	await delay(2000);
+  	document.getElementById("text2").style.display="block";
+  	document.getElementById("text1").style.display="none";
+  	await delay(2000);
+  	// change needle
+  	document.getElementById("text2").style.display="none";
+  	document.getElementById("text3").style.display="block";
+  	if (pred==1){ //boy
+  		rangeClock.style.transform = 'rotate(' + (-90 + ((10 * 180) / 100)) + 'deg)';
+  		document.getElementById("boy").style.display="block";
+  	}
+  	else {
+  		rangeClock.style.transform = 'rotate(' + (-90 + ((90 * 180) / 100)) + 'deg)';
+  		document.getElementById("girl").style.display="block";
+  	}
+  }
+</script>
+{% endblock %}
